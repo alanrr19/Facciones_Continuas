@@ -20,29 +20,34 @@ namespace Facciones_Continuas
 
         private void BtnCalcular_Click(object sender, EventArgs e)
         {
-            int a, b, i = 1;
-            String ecuacion = "";
+            int a, b;
             a = int.Parse(TxtNum1.Text);
             b = int.Parse(TxtNum2.Text);
+            TablaDatos.Rows.Clear();
+            CalcularFraccionContinua(a, b);
+        }
 
-            while (b != 0)
+        private void CalcularFraccionContinua(int a, int b)
+        {
+            if (b == 0)
+            return;
+
+            int resultante = a / b;
+            int residuo = a % b;
+
+            string ecuacion;
+            if (residuo == 0)
             {
-                
-                int temp = b;
-                b = a%b;
-                if (b == 0)
-                {
-                    ecuacion = a + "/"+temp +" = " +(a/temp);
-                }
-                else
-                {
-                    ecuacion = a + "/" + temp + " = " + (a / temp) + " + 1/" + temp + " / " + b;
-                }
-                TablaDatos.Rows.Add(i, a+ " divido entre " + temp+" es "+(a/temp)+ " y sobran "+b, ecuacion );
-                a = temp;
-                i++;
+                ecuacion = a + "/" + b + " = " + resultante;
             }
-            
+            else
+            {
+                ecuacion = a + "/" + b + " = " + resultamte + " + 1/" + b + " / " + residuo;
+            }    
+
+            TablaDatos.Rows.Add(TablaDatos.Rows.Count, a + " dividido entre " + b + " es " + resultante + " y sobran " + residuo, ecuacion);
+    
+            CalcularFraccionContinua(b, residuo);
         }
     }
 }
